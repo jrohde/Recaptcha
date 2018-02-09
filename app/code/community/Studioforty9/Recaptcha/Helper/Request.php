@@ -39,7 +39,7 @@ class Studioforty9_Recaptcha_Helper_Request extends Mage_Core_Helper_Abstract
     public function setHttpClient(Varien_Http_Client $client)
     {
         $this->_client = $client;
-        
+
         return $this;
     }
 
@@ -53,8 +53,10 @@ class Studioforty9_Recaptcha_Helper_Request extends Mage_Core_Helper_Abstract
         if (is_null($this->_client)) {
             $this->_client = new Zend_Http_Client();
         }
-        
+
         $this->_client->setUri(self::REQUEST_URL);
+
+        $this->_client->setConfig(array('httpversion' => Zend_Http_Client::HTTP_0));
 
         return $this->_client;
     }
@@ -71,7 +73,7 @@ class Studioforty9_Recaptcha_Helper_Request extends Mage_Core_Helper_Abstract
             'response' => $this->_getRequest()->getPost(self::REQUEST_RESPONSE),
             'remoteip' => $this->_getRequest()->getClientIp(true),
         );
-        
+
         $client = $this->getHttpClient();
         $client->setParameterPost($params);
         $errors = array();
